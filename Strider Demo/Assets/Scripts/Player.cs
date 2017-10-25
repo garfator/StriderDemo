@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    public float maxSpeed = 3;
-    public float Speed = 50f;
+
+
+
+    public float maxSpeed = 30;
+    public float Speed = 500f;
     public float jumpPower = 150f;
+
+
+
     public bool grounded;
+    public bool canDoubleJump;
 
     private Rigidbody2D rb2d;
-
     private Animator anim;
 
 	// Use this for initialization
@@ -36,9 +42,28 @@ public class Player : MonoBehaviour {
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        if(Input.GetButtonDown("Jump") && grounded)
+        if(Input.GetButtonDown("Jump"))
         {
-            rb2d.AddForce(Vector2.up * jumpPower);
+            if (grounded)
+            {
+
+                rb2d.AddForce(Vector2.up * jumpPower);
+                canDoubleJump = true;
+            }
+
+            else
+            {
+                if(canDoubleJump)
+                {
+
+                    canDoubleJump = false;
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
+                    rb2d.AddForce(Vector2.up * (jumpPower * 1.75f));
+
+                }
+            }
+
+
         }
 
 
@@ -58,7 +83,7 @@ public class Player : MonoBehaviour {
 
 
 
-        if(grounded == true)
+        if(grounded)
         {
             rb2d.velocity = easeVelocity;
         }
