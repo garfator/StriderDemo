@@ -9,3 +9,8 @@ Version v15
     Changed Art Assets
     Added Double Jump
     Changed JumpPower and Speed variables
+
+
+Looking to update Unity to version 2021.2
+
+Looking into LTS pipeline.
